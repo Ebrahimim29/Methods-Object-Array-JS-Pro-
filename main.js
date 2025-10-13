@@ -156,6 +156,45 @@ console.log(e);
 e.b=5;
 console.log(e);
 
+//243-معرفی protoType و کاربرد آن در جاوااسکریپت
+//یک آبجکت پشت صحنه است و مثل یک والد نامرئی برای آبجکت ها ست
+
+const parent = {z:10};
+const obj3 = Object.create(parent); //ساخت آبجکت با لینک به parent
+obj3.a = 11;
+console.log(obj3);
+console.log(obj3.z);
+console.log(obj3.toString());
+console.log(Object.keys(obj3).toString());
+
+//روش جایگزینی تعریف پراپرتی در Prototype
+function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.sayHello = function () {
+    return `Hello ${this.name}`;
+}
+const user = new Person("Kami");
+console.log(user.sayHello());
+
+//-obj.in
+const k = {s:20}; 
+console.log('s' in k); //true
+console.log('toString' in k); //true
+console.log('a' in k); //false
+
+//-obj.hasOwnProperty
+const parent1 = {l:30};
+const jj = Object.create(parent1);
+jj.a = 40;
+console.log(jj.hasOwnProperty('a')); //true: پراپرتی مستقیم
+console.log(jj.hasOwnProperty('l')); //false: پراپرتی موجود در پروتوتایپ
+console.log(jj.hasOwnProperty('toString')); //false
+
+
+
+
 
 
 
