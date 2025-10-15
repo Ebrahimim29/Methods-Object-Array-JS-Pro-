@@ -192,26 +192,94 @@ console.log(jj.hasOwnProperty('a')); //true: پراپرتی مستقیم
 console.log(jj.hasOwnProperty('l')); //false: پراپرتی موجود در پروتوتایپ
 console.log(jj.hasOwnProperty('toString')); //false
 
+//--تمرین
+function Parent() {} //constructor function
+
+Parent.prototype.a = 1;
+Parent.prototype.b = 2;
+Parent.prototype.c = 3;
+
+const obj_1 = new Parent();
+const obj_2 = new Parent();
+const obj_3 = new Parent();
+
+obj_1.d = 4;
+console.log(obj_1);
+
+console.log(`obj_1:a:${obj_1.a}, b:${obj_1.b} , c:${obj_1.c}`);
+console.log(`obj_1:a:${obj_2.a}, b:${obj_2.b} , c:${obj_2.c}`);
+console.log(`obj_1:a:${obj_3.a}, b:${obj_3.b} , c:${obj_3.c}`);
+
+//244- معرفی حلقه های for...in و for...of
+const person1 = {name:"kami", age:40, city:"usa"};
+
+for (let key in person1){
+    console.log(key, ":" , person1[key]);
+    console.log(typeof key);    
+}
+
+//استفاده در آرایه
+const numbers = [10,20,30];
+
+for(let index in numbers){
+    console.log(index, ":" , numbers[index]);    
+}
+
+for(let value of numbers){ //مخصوص آرایه ها
+    console.log(value);
+    console.log(typeof value);        
+}
+
+//obj.propertyIsEnumerable
+const o = {};
+Object.defineProperty(o, 'hidden', {value: 1, enumerable:false});
+o.visible = 2;
+console.log(o.propertyIsEnumerable('hidden'));
+console.log(o.propertyIsEnumerable('visible'));
+
+//Object.getPrototypeOf():
+const proto = {hello(){return 'hi';}};
+const v = Object.create(proto);
+console.log(Object.getPrototypeOf(v));
+console.log(Object.getPrototypeOf(v) === proto);
+
+//Object.setPrototypeOf(target, value): کاربرد کم و خطرناک برای پروتوتایپ منبع
+const value1 = {greet(){return 'hi';} };
+const target1 = {};
+Object.setPrototypeOf(target1, value1);
+console.log(target1.greet());
+
+//245-تشریح مباحث cloning , destructuring
+
+//clone: یعنی یک کپی از آبجکت بگیریم
+//Shallow Clone: فقط سطح اول جدا میشه،مقادیر داخلی همچنان مرجع مشترک دارند
+const s = {x:1, inner:{y:2}};
+const t = {...s, z:5};
+s.x =99;
+s.inner.y =100;
+console.log(t);
+console.log(s);
+t.inner.y =200;
+console.log(s.inner.y); //inner: هنوز مرجع مشترک است
+
+//Deep Clone: کل لایه های داخلی هم جدا میشن و کاملا یک نسخه مستقل ساخته میشه
+const orginal = {num:42, date:new Date(), undef:undefined, 
+    // func:()=>'bye',
+    nested:{x:1}};
+
+//1)JSON way(NOT Suitable for function,Set,Map,Date,Symbol,undefined,circular):
+const jsonClone = JSON.parse(JSON.stringify(orginal));
+console.log(jsonClone);
+
+//2)structuredClone(modern Browsers/Web API): بیشتر ساختارها و دیتاها رو ساپورت می کنه(سریعترو دقیقتر)
+const structured = structuredClone(orginal);
+console.log(structured);
 
 
+//Object Destructuring: بیرون کشیدن مقدارهای داخل آبجکت به متغییرها، نوشتن همون کلیدها
+//کاربرد: دسترسی سریع تر به مقادیر آبجکت، ساده تر کردن کد، استفاده از پراپرتی ها رو در کامپوننت ریکت ساده تر می کنه
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//part245 6:11
 
 
 
